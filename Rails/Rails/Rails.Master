@@ -1,0 +1,45 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Rails.master.cs" Inherits="Rails.MasterPageRails" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>GVB Havenstraat</title>
+    <link rel="shortcut icon" type="image/x-icon" href="LogoGVBamsterdamWhiteNoText.png" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="bootstrap.css" rel="stylesheet" type="text/css" />
+</head>
+<body>  
+<nav class="navbar navbar-default2 navbar-fixed-top">
+  <div class="navtop">
+    Remise Havenstraat
+  </div>
+</nav>
+    <nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top2">
+      <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+          <img alt="Brand" class="logo" src="LogoGVBamsterdamWhiteNoText.png"/>
+      </a>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Link</a></li>
+        </ul> 
+    </div>
+  </div>
+</nav>
+        </nav>
+    <div class="jumbotron">
+                <form id="form1" runat="server">
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+    </div>
+
+</body>
+</html>
