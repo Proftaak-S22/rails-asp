@@ -1,0 +1,1091 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RailsDataModel.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="FUNCTIE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Naam" Type="nvarchar2" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="FUNCTIE_RECHT">
+          <Key>
+            <PropertyRef Name="Functie_ID" />
+            <PropertyRef Name="Recht_ID" />
+          </Key>
+          <Property Name="Functie_ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Recht_ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LIJN">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Remise_ID" Type="number" Precision="10" Scale="0" />
+          <Property Name="Nummer" Type="number" Precision="10" Scale="0" />
+          <Property Name="ConducteurRijdtMee" Type="number" Precision="1" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MEDEWERKER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Functie_ID" Type="number" Precision="10" Scale="0" />
+          <Property Name="Naam" Type="nvarchar2" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'DBI346087.ONDERHOUD' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ONDERHOUD">
+          <Property Name="GroteServiceBeurtenPerJaar" Type="number" Precision="10" Scale="0" />
+          <Property Name="KleineServiceBeurtenPerJaar" Type="number" Precision="10" Scale="0" />
+          <Property Name="GroteSchoonmaakBeurtenPerJaar" Type="number" Precision="10" Scale="0" />
+          <Property Name="KleineSchoonmaakBeurtenPerJaar" Type="number" Precision="10" Scale="0" />
+        </EntityType>-->
+        <EntityType Name="RECHT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Omschrijving" Type="nvarchar2" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="REMISE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Naam" Type="nvarchar2" MaxLength="255" />
+          <Property Name="GroteServiceBeurtenPerDag" Type="number" Precision="10" Scale="0" />
+          <Property Name="KleineServiceBeurtenPerDag" Type="number" Precision="10" Scale="0" />
+          <Property Name="GroteSchoonmaakBeurtenPerDag" Type="number" Precision="10" Scale="0" />
+          <Property Name="KleineSchoonmaakBeurtenPerDag" Type="number" Precision="10" Scale="0" />
+        </EntityType>
+        <EntityType Name="RESERVERING">
+          <Key>
+            <PropertyRef Name="Reservering_ID" />
+          </Key>
+          <Property Name="Reservering_ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Tram_ID" Type="number" Precision="10" Scale="0" />
+          <Property Name="Spoor_ID" Type="number" Precision="10" Scale="0" />
+        </EntityType>
+        <EntityType Name="SECTOR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Spoor_ID" Type="number" Precision="10" Scale="0" />
+          <Property Name="Tram_ID" Type="number" Precision="10" Scale="0" />
+          <Property Name="Nummer" Type="number" Precision="10" Scale="0" />
+          <Property Name="Beschikbaar" Type="number" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="Blokkade" Type="number" Precision="1" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SPOOR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Remise_ID" Type="number" Precision="10" Scale="0" />
+          <Property Name="Nummer" Type="number" Precision="10" Scale="0" />
+          <Property Name="Lengte" Type="number" Precision="10" Scale="0" />
+          <Property Name="Beschikbaar" Type="number" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="InUitRijspoor" Type="number" Precision="1" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TRAM">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Remise_ID_Standplaats" Type="number" Precision="10" Scale="0" />
+          <Property Name="Tramtype_ID" Type="number" Precision="10" Scale="0" />
+          <Property Name="Nummer" Type="number" Precision="10" Scale="0" />
+          <Property Name="Lengte" Type="number" Precision="10" Scale="0" />
+          <Property Name="Status" Type="nvarchar2" MaxLength="255" />
+          <Property Name="Vervuild" Type="number" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="Defect" Type="number" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="ConducteurGeschikt" Type="number" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="Beschikbaar" Type="number" Precision="1" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TRAM_LIJN">
+          <Key>
+            <PropertyRef Name="TL_ID" />
+          </Key>
+          <Property Name="TL_ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Tram_ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Lijn_ID" Type="number" Precision="10" Scale="0" />
+          <Property Name="Gebonden" Type="number" Precision="1" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TRAM_ONDERHOUD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Medewerker_ID" Type="number" Precision="10" Scale="0" />
+          <Property Name="Tram_ID" Type="number" Precision="10" Scale="0" />
+          <Property Name="DatumTijdstip" Type="date" />
+          <Property Name="BeschikbaarDatum" Type="date" />
+          <Property Name="TypeOnderhoud" Type="nvarchar2" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="TRAMTYPE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Omschrijving" Type="nvarchar2" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="TRANSFER">
+          <Key>
+            <PropertyRef Name="Remise_ID_Van" />
+            <PropertyRef Name="Remise_ID_Naar" />
+          </Key>
+          <Property Name="Remise_ID_Van" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Remise_ID_Naar" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Aantal" Type="number" Precision="10" Scale="0" />
+        </EntityType>
+        <EntityType Name="VERBINDING">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Sector_ID_Van" Type="number" Precision="10" Scale="0" />
+          <Property Name="Sector_ID_Naar" Type="number" Precision="10" Scale="0" />
+        </EntityType>
+        <Association Name="FUNCTIEFUNCTIE_RECHT">
+          <End Role="FUNCTIE" Type="Self.FUNCTIE" Multiplicity="1" />
+          <End Role="FUNCTIE_RECHT" Type="Self.FUNCTIE_RECHT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCTIE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FUNCTIE_RECHT">
+              <PropertyRef Name="Functie_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FUNCTIEMEDEWERKER">
+          <End Role="FUNCTIE" Type="Self.FUNCTIE" Multiplicity="0..1" />
+          <End Role="MEDEWERKER" Type="Self.MEDEWERKER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCTIE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MEDEWERKER">
+              <PropertyRef Name="Functie_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LIJNTRAM_LIJN">
+          <End Role="LIJN" Type="Self.LIJN" Multiplicity="0..1" />
+          <End Role="TRAM_LIJN" Type="Self.TRAM_LIJN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LIJN">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRAM_LIJN">
+              <PropertyRef Name="Lijn_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MEDEWERKERTRAM_ONDERHOUD">
+          <End Role="MEDEWERKER" Type="Self.MEDEWERKER" Multiplicity="0..1" />
+          <End Role="TRAM_ONDERHOUD" Type="Self.TRAM_ONDERHOUD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEDEWERKER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRAM_ONDERHOUD">
+              <PropertyRef Name="Medewerker_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RECHTFUNCTIE_RECHT">
+          <End Role="RECHT" Type="Self.RECHT" Multiplicity="1" />
+          <End Role="FUNCTIE_RECHT" Type="Self.FUNCTIE_RECHT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RECHT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FUNCTIE_RECHT">
+              <PropertyRef Name="Recht_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="REMISELIJN">
+          <End Role="REMISE" Type="Self.REMISE" Multiplicity="0..1" />
+          <End Role="LIJN" Type="Self.LIJN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REMISE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LIJN">
+              <PropertyRef Name="Remise_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="REMISESPOOR">
+          <End Role="REMISE" Type="Self.REMISE" Multiplicity="0..1" />
+          <End Role="SPOOR" Type="Self.SPOOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REMISE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SPOOR">
+              <PropertyRef Name="Remise_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="REMISETRAM">
+          <End Role="REMISE" Type="Self.REMISE" Multiplicity="0..1" />
+          <End Role="TRAM" Type="Self.TRAM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REMISE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRAM">
+              <PropertyRef Name="Remise_ID_Standplaats" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="REMISETRANSFER">
+          <End Role="REMISE" Type="Self.REMISE" Multiplicity="1" />
+          <End Role="TRANSFER" Type="Self.TRANSFER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REMISE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRANSFER">
+              <PropertyRef Name="Remise_ID_Van" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="REMISETRANSFER1">
+          <End Role="REMISE" Type="Self.REMISE" Multiplicity="1" />
+          <End Role="TRANSFER" Type="Self.TRANSFER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REMISE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRANSFER">
+              <PropertyRef Name="Remise_ID_Naar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SECTORVERBINDING">
+          <End Role="SECTOR" Type="Self.SECTOR" Multiplicity="0..1" />
+          <End Role="VERBINDING" Type="Self.VERBINDING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SECTOR">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VERBINDING">
+              <PropertyRef Name="Sector_ID_Van" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SECTORVERBINDING1">
+          <End Role="SECTOR" Type="Self.SECTOR" Multiplicity="0..1" />
+          <End Role="VERBINDING" Type="Self.VERBINDING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SECTOR">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VERBINDING">
+              <PropertyRef Name="Sector_ID_Naar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SPOORRESERVERING">
+          <End Role="SPOOR" Type="Self.SPOOR" Multiplicity="0..1" />
+          <End Role="RESERVERING" Type="Self.RESERVERING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SPOOR">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RESERVERING">
+              <PropertyRef Name="Spoor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SPOORSECTOR">
+          <End Role="SPOOR" Type="Self.SPOOR" Multiplicity="0..1" />
+          <End Role="SECTOR" Type="Self.SECTOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SPOOR">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SECTOR">
+              <PropertyRef Name="Spoor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TRAMRESERVERING">
+          <End Role="TRAM" Type="Self.TRAM" Multiplicity="0..1" />
+          <End Role="RESERVERING" Type="Self.RESERVERING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRAM">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RESERVERING">
+              <PropertyRef Name="Tram_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TRAMTRAM_LIJN">
+          <End Role="TRAM" Type="Self.TRAM" Multiplicity="1" />
+          <End Role="TRAM_LIJN" Type="Self.TRAM_LIJN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRAM">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRAM_LIJN">
+              <PropertyRef Name="Tram_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TRAMTRAM_ONDERHOUD">
+          <End Role="TRAM" Type="Self.TRAM" Multiplicity="0..1" />
+          <End Role="TRAM_ONDERHOUD" Type="Self.TRAM_ONDERHOUD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRAM">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRAM_ONDERHOUD">
+              <PropertyRef Name="Tram_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TRAMTYPETRAM">
+          <End Role="TRAMTYPE" Type="Self.TRAMTYPE" Multiplicity="0..1" />
+          <End Role="TRAM" Type="Self.TRAM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRAMTYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRAM">
+              <PropertyRef Name="Tramtype_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RailsDataModelStoreContainer">
+          <EntitySet Name="FUNCTIE" EntityType="Self.FUNCTIE" Schema="DBI346087" store:Type="Tables" />
+          <EntitySet Name="FUNCTIE_RECHT" EntityType="Self.FUNCTIE_RECHT" Schema="DBI346087" store:Type="Tables" />
+          <EntitySet Name="LIJN" EntityType="Self.LIJN" Schema="DBI346087" store:Type="Tables" />
+          <EntitySet Name="MEDEWERKER" EntityType="Self.MEDEWERKER" Schema="DBI346087" store:Type="Tables" />
+          <EntitySet Name="RECHT" EntityType="Self.RECHT" Schema="DBI346087" store:Type="Tables" />
+          <EntitySet Name="REMISE" EntityType="Self.REMISE" Schema="DBI346087" store:Type="Tables" />
+          <EntitySet Name="RESERVERING" EntityType="Self.RESERVERING" Schema="DBI346087" store:Type="Tables" />
+          <EntitySet Name="SECTOR" EntityType="Self.SECTOR" Schema="DBI346087" store:Type="Tables" />
+          <EntitySet Name="SPOOR" EntityType="Self.SPOOR" Schema="DBI346087" store:Type="Tables" />
+          <EntitySet Name="TRAM" EntityType="Self.TRAM" Schema="DBI346087" store:Type="Tables" />
+          <EntitySet Name="TRAM_LIJN" EntityType="Self.TRAM_LIJN" Schema="DBI346087" store:Type="Tables" />
+          <EntitySet Name="TRAM_ONDERHOUD" EntityType="Self.TRAM_ONDERHOUD" Schema="DBI346087" store:Type="Tables" />
+          <EntitySet Name="TRAMTYPE" EntityType="Self.TRAMTYPE" Schema="DBI346087" store:Type="Tables" />
+          <EntitySet Name="TRANSFER" EntityType="Self.TRANSFER" Schema="DBI346087" store:Type="Tables" />
+          <EntitySet Name="VERBINDING" EntityType="Self.VERBINDING" Schema="DBI346087" store:Type="Tables" />
+          <AssociationSet Name="FUNCTIEFUNCTIE_RECHT" Association="Self.FUNCTIEFUNCTIE_RECHT">
+            <End Role="FUNCTIE" EntitySet="FUNCTIE" />
+            <End Role="FUNCTIE_RECHT" EntitySet="FUNCTIE_RECHT" />
+          </AssociationSet>
+          <AssociationSet Name="FUNCTIEMEDEWERKER" Association="Self.FUNCTIEMEDEWERKER">
+            <End Role="FUNCTIE" EntitySet="FUNCTIE" />
+            <End Role="MEDEWERKER" EntitySet="MEDEWERKER" />
+          </AssociationSet>
+          <AssociationSet Name="LIJNTRAM_LIJN" Association="Self.LIJNTRAM_LIJN">
+            <End Role="LIJN" EntitySet="LIJN" />
+            <End Role="TRAM_LIJN" EntitySet="TRAM_LIJN" />
+          </AssociationSet>
+          <AssociationSet Name="MEDEWERKERTRAM_ONDERHOUD" Association="Self.MEDEWERKERTRAM_ONDERHOUD">
+            <End Role="MEDEWERKER" EntitySet="MEDEWERKER" />
+            <End Role="TRAM_ONDERHOUD" EntitySet="TRAM_ONDERHOUD" />
+          </AssociationSet>
+          <AssociationSet Name="RECHTFUNCTIE_RECHT" Association="Self.RECHTFUNCTIE_RECHT">
+            <End Role="RECHT" EntitySet="RECHT" />
+            <End Role="FUNCTIE_RECHT" EntitySet="FUNCTIE_RECHT" />
+          </AssociationSet>
+          <AssociationSet Name="REMISELIJN" Association="Self.REMISELIJN">
+            <End Role="REMISE" EntitySet="REMISE" />
+            <End Role="LIJN" EntitySet="LIJN" />
+          </AssociationSet>
+          <AssociationSet Name="REMISESPOOR" Association="Self.REMISESPOOR">
+            <End Role="REMISE" EntitySet="REMISE" />
+            <End Role="SPOOR" EntitySet="SPOOR" />
+          </AssociationSet>
+          <AssociationSet Name="REMISETRAM" Association="Self.REMISETRAM">
+            <End Role="REMISE" EntitySet="REMISE" />
+            <End Role="TRAM" EntitySet="TRAM" />
+          </AssociationSet>
+          <AssociationSet Name="REMISETRANSFER" Association="Self.REMISETRANSFER">
+            <End Role="REMISE" EntitySet="REMISE" />
+            <End Role="TRANSFER" EntitySet="TRANSFER" />
+          </AssociationSet>
+          <AssociationSet Name="REMISETRANSFER1" Association="Self.REMISETRANSFER1">
+            <End Role="REMISE" EntitySet="REMISE" />
+            <End Role="TRANSFER" EntitySet="TRANSFER" />
+          </AssociationSet>
+          <AssociationSet Name="SECTORVERBINDING" Association="Self.SECTORVERBINDING">
+            <End Role="SECTOR" EntitySet="SECTOR" />
+            <End Role="VERBINDING" EntitySet="VERBINDING" />
+          </AssociationSet>
+          <AssociationSet Name="SECTORVERBINDING1" Association="Self.SECTORVERBINDING1">
+            <End Role="SECTOR" EntitySet="SECTOR" />
+            <End Role="VERBINDING" EntitySet="VERBINDING" />
+          </AssociationSet>
+          <AssociationSet Name="SPOORRESERVERING" Association="Self.SPOORRESERVERING">
+            <End Role="SPOOR" EntitySet="SPOOR" />
+            <End Role="RESERVERING" EntitySet="RESERVERING" />
+          </AssociationSet>
+          <AssociationSet Name="SPOORSECTOR" Association="Self.SPOORSECTOR">
+            <End Role="SPOOR" EntitySet="SPOOR" />
+            <End Role="SECTOR" EntitySet="SECTOR" />
+          </AssociationSet>
+          <AssociationSet Name="TRAMRESERVERING" Association="Self.TRAMRESERVERING">
+            <End Role="TRAM" EntitySet="TRAM" />
+            <End Role="RESERVERING" EntitySet="RESERVERING" />
+          </AssociationSet>
+          <AssociationSet Name="TRAMTRAM_LIJN" Association="Self.TRAMTRAM_LIJN">
+            <End Role="TRAM" EntitySet="TRAM" />
+            <End Role="TRAM_LIJN" EntitySet="TRAM_LIJN" />
+          </AssociationSet>
+          <AssociationSet Name="TRAMTRAM_ONDERHOUD" Association="Self.TRAMTRAM_ONDERHOUD">
+            <End Role="TRAM" EntitySet="TRAM" />
+            <End Role="TRAM_ONDERHOUD" EntitySet="TRAM_ONDERHOUD" />
+          </AssociationSet>
+          <AssociationSet Name="TRAMTYPETRAM" Association="Self.TRAMTYPETRAM">
+            <End Role="TRAMTYPE" EntitySet="TRAMTYPE" />
+            <End Role="TRAM" EntitySet="TRAM" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RailsDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="FUNCTIE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Naam" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MEDEWERKER" Relationship="Self.FUNCTIEMEDEWERKER" FromRole="FUNCTIE" ToRole="MEDEWERKER" />
+          <NavigationProperty Name="RECHT" Relationship="Self.FUNCTIE_RECHT" FromRole="FUNCTIE" ToRole="RECHT" />
+        </EntityType>
+        <EntityType Name="LIJN">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Remise_ID" Type="Int32" />
+          <Property Name="Nummer" Type="Int32" />
+          <Property Name="ConducteurRijdtMee" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TRAM_LIJN" Relationship="Self.LIJNTRAM_LIJN" FromRole="LIJN" ToRole="TRAM_LIJN" />
+          <NavigationProperty Name="REMISE" Relationship="Self.REMISELIJN" FromRole="LIJN" ToRole="REMISE" />
+        </EntityType>
+        <EntityType Name="MEDEWERKER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Functie_ID" Type="Int32" />
+          <Property Name="Naam" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FUNCTIE" Relationship="Self.FUNCTIEMEDEWERKER" FromRole="MEDEWERKER" ToRole="FUNCTIE" />
+          <NavigationProperty Name="TRAM_ONDERHOUD" Relationship="Self.MEDEWERKERTRAM_ONDERHOUD" FromRole="MEDEWERKER" ToRole="TRAM_ONDERHOUD" />
+        </EntityType>
+        <EntityType Name="RECHT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Omschrijving" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FUNCTIE" Relationship="Self.FUNCTIE_RECHT" FromRole="RECHT" ToRole="FUNCTIE" />
+        </EntityType>
+        <EntityType Name="REMISE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Naam" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="GroteServiceBeurtenPerDag" Type="Int32" />
+          <Property Name="KleineServiceBeurtenPerDag" Type="Int32" />
+          <Property Name="GroteSchoonmaakBeurtenPerDag" Type="Int32" />
+          <Property Name="KleineSchoonmaakBeurtenPerDag" Type="Int32" />
+          <NavigationProperty Name="LIJN" Relationship="Self.REMISELIJN" FromRole="REMISE" ToRole="LIJN" />
+          <NavigationProperty Name="SPOOR" Relationship="Self.REMISESPOOR" FromRole="REMISE" ToRole="SPOOR" />
+          <NavigationProperty Name="TRAM" Relationship="Self.REMISETRAM" FromRole="REMISE" ToRole="TRAM" />
+          <NavigationProperty Name="TRANSFER" Relationship="Self.REMISETRANSFER" FromRole="REMISE" ToRole="TRANSFER" />
+          <NavigationProperty Name="TRANSFER1" Relationship="Self.REMISETRANSFER1" FromRole="REMISE" ToRole="TRANSFER" />
+        </EntityType>
+        <EntityType Name="RESERVERING">
+          <Key>
+            <PropertyRef Name="Reservering_ID" />
+          </Key>
+          <Property Name="Reservering_ID" Type="Int32" Nullable="false" />
+          <Property Name="Tram_ID" Type="Int32" />
+          <Property Name="Spoor_ID" Type="Int32" />
+          <NavigationProperty Name="SPOOR" Relationship="Self.SPOORRESERVERING" FromRole="RESERVERING" ToRole="SPOOR" />
+          <NavigationProperty Name="TRAM" Relationship="Self.TRAMRESERVERING" FromRole="RESERVERING" ToRole="TRAM" />
+        </EntityType>
+        <EntityType Name="SECTOR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Spoor_ID" Type="Int32" />
+          <Property Name="Tram_ID" Type="Int32" />
+          <Property Name="Nummer" Type="Int32" />
+          <Property Name="Beschikbaar" Type="Boolean" Nullable="false" />
+          <Property Name="Blokkade" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="VERBINDING" Relationship="Self.SECTORVERBINDING" FromRole="SECTOR" ToRole="VERBINDING" />
+          <NavigationProperty Name="VERBINDING1" Relationship="Self.SECTORVERBINDING1" FromRole="SECTOR" ToRole="VERBINDING" />
+          <NavigationProperty Name="SPOOR" Relationship="Self.SPOORSECTOR" FromRole="SECTOR" ToRole="SPOOR" />
+        </EntityType>
+        <EntityType Name="SPOOR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Remise_ID" Type="Int32" />
+          <Property Name="Nummer" Type="Int32" />
+          <Property Name="Lengte" Type="Int32" />
+          <Property Name="Beschikbaar" Type="Boolean" Nullable="false" />
+          <Property Name="InUitRijspoor" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="REMISE" Relationship="Self.REMISESPOOR" FromRole="SPOOR" ToRole="REMISE" />
+          <NavigationProperty Name="RESERVERING" Relationship="Self.SPOORRESERVERING" FromRole="SPOOR" ToRole="RESERVERING" />
+          <NavigationProperty Name="SECTOR" Relationship="Self.SPOORSECTOR" FromRole="SPOOR" ToRole="SECTOR" />
+        </EntityType>
+        <EntityType Name="TRAM">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Remise_ID_Standplaats" Type="Int32" />
+          <Property Name="Tramtype_ID" Type="Int32" />
+          <Property Name="Nummer" Type="Int32" />
+          <Property Name="Lengte" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Vervuild" Type="Boolean" Nullable="false" />
+          <Property Name="Defect" Type="Boolean" Nullable="false" />
+          <Property Name="ConducteurGeschikt" Type="Boolean" Nullable="false" />
+          <Property Name="Beschikbaar" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="REMISE" Relationship="Self.REMISETRAM" FromRole="TRAM" ToRole="REMISE" />
+          <NavigationProperty Name="RESERVERING" Relationship="Self.TRAMRESERVERING" FromRole="TRAM" ToRole="RESERVERING" />
+          <NavigationProperty Name="TRAM_LIJN" Relationship="Self.TRAMTRAM_LIJN" FromRole="TRAM" ToRole="TRAM_LIJN" />
+          <NavigationProperty Name="TRAM_ONDERHOUD" Relationship="Self.TRAMTRAM_ONDERHOUD" FromRole="TRAM" ToRole="TRAM_ONDERHOUD" />
+          <NavigationProperty Name="TRAMTYPE" Relationship="Self.TRAMTYPETRAM" FromRole="TRAM" ToRole="TRAMTYPE" />
+        </EntityType>
+        <EntityType Name="TRAM_LIJN">
+          <Key>
+            <PropertyRef Name="TL_ID" />
+          </Key>
+          <Property Name="TL_ID" Type="Int32" Nullable="false" />
+          <Property Name="Tram_ID" Type="Int32" Nullable="false" />
+          <Property Name="Lijn_ID" Type="Int32" />
+          <Property Name="Gebonden" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LIJN" Relationship="Self.LIJNTRAM_LIJN" FromRole="TRAM_LIJN" ToRole="LIJN" />
+          <NavigationProperty Name="TRAM" Relationship="Self.TRAMTRAM_LIJN" FromRole="TRAM_LIJN" ToRole="TRAM" />
+        </EntityType>
+        <EntityType Name="TRAM_ONDERHOUD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Medewerker_ID" Type="Int32" />
+          <Property Name="Tram_ID" Type="Int32" />
+          <Property Name="DatumTijdstip" Type="DateTime" />
+          <Property Name="BeschikbaarDatum" Type="DateTime" />
+          <Property Name="TypeOnderhoud" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MEDEWERKER" Relationship="Self.MEDEWERKERTRAM_ONDERHOUD" FromRole="TRAM_ONDERHOUD" ToRole="MEDEWERKER" />
+          <NavigationProperty Name="TRAM" Relationship="Self.TRAMTRAM_ONDERHOUD" FromRole="TRAM_ONDERHOUD" ToRole="TRAM" />
+        </EntityType>
+        <EntityType Name="TRAMTYPE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Omschrijving" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TRAM" Relationship="Self.TRAMTYPETRAM" FromRole="TRAMTYPE" ToRole="TRAM" />
+        </EntityType>
+        <EntityType Name="TRANSFER">
+          <Key>
+            <PropertyRef Name="Remise_ID_Van" />
+            <PropertyRef Name="Remise_ID_Naar" />
+          </Key>
+          <Property Name="Remise_ID_Van" Type="Int32" Nullable="false" />
+          <Property Name="Remise_ID_Naar" Type="Int32" Nullable="false" />
+          <Property Name="Aantal" Type="Int32" />
+          <NavigationProperty Name="REMISE" Relationship="Self.REMISETRANSFER" FromRole="TRANSFER" ToRole="REMISE" />
+          <NavigationProperty Name="REMISE1" Relationship="Self.REMISETRANSFER1" FromRole="TRANSFER" ToRole="REMISE" />
+        </EntityType>
+        <EntityType Name="VERBINDING">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Sector_ID_Van" Type="Int32" />
+          <Property Name="Sector_ID_Naar" Type="Int32" />
+          <NavigationProperty Name="SECTOR" Relationship="Self.SECTORVERBINDING" FromRole="VERBINDING" ToRole="SECTOR" />
+          <NavigationProperty Name="SECTOR1" Relationship="Self.SECTORVERBINDING1" FromRole="VERBINDING" ToRole="SECTOR" />
+        </EntityType>
+        <Association Name="FUNCTIEMEDEWERKER">
+          <End Role="FUNCTIE" Type="Self.FUNCTIE" Multiplicity="0..1" />
+          <End Role="MEDEWERKER" Type="Self.MEDEWERKER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCTIE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MEDEWERKER">
+              <PropertyRef Name="Functie_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LIJNTRAM_LIJN">
+          <End Role="LIJN" Type="Self.LIJN" Multiplicity="0..1" />
+          <End Role="TRAM_LIJN" Type="Self.TRAM_LIJN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LIJN">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRAM_LIJN">
+              <PropertyRef Name="Lijn_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="REMISELIJN">
+          <End Role="REMISE" Type="Self.REMISE" Multiplicity="0..1" />
+          <End Role="LIJN" Type="Self.LIJN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REMISE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LIJN">
+              <PropertyRef Name="Remise_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MEDEWERKERTRAM_ONDERHOUD">
+          <End Role="MEDEWERKER" Type="Self.MEDEWERKER" Multiplicity="0..1" />
+          <End Role="TRAM_ONDERHOUD" Type="Self.TRAM_ONDERHOUD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEDEWERKER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRAM_ONDERHOUD">
+              <PropertyRef Name="Medewerker_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="REMISESPOOR">
+          <End Role="REMISE" Type="Self.REMISE" Multiplicity="0..1" />
+          <End Role="SPOOR" Type="Self.SPOOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REMISE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SPOOR">
+              <PropertyRef Name="Remise_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="REMISETRAM">
+          <End Role="REMISE" Type="Self.REMISE" Multiplicity="0..1" />
+          <End Role="TRAM" Type="Self.TRAM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REMISE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRAM">
+              <PropertyRef Name="Remise_ID_Standplaats" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="REMISETRANSFER">
+          <End Role="REMISE" Type="Self.REMISE" Multiplicity="1" />
+          <End Role="TRANSFER" Type="Self.TRANSFER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REMISE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRANSFER">
+              <PropertyRef Name="Remise_ID_Van" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="REMISETRANSFER1">
+          <End Role="REMISE" Type="Self.REMISE" Multiplicity="1" />
+          <End Role="TRANSFER" Type="Self.TRANSFER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REMISE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRANSFER">
+              <PropertyRef Name="Remise_ID_Naar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SPOORRESERVERING">
+          <End Role="SPOOR" Type="Self.SPOOR" Multiplicity="0..1" />
+          <End Role="RESERVERING" Type="Self.RESERVERING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SPOOR">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RESERVERING">
+              <PropertyRef Name="Spoor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TRAMRESERVERING">
+          <End Role="TRAM" Type="Self.TRAM" Multiplicity="0..1" />
+          <End Role="RESERVERING" Type="Self.RESERVERING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRAM">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RESERVERING">
+              <PropertyRef Name="Tram_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SECTORVERBINDING">
+          <End Role="SECTOR" Type="Self.SECTOR" Multiplicity="0..1" />
+          <End Role="VERBINDING" Type="Self.VERBINDING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SECTOR">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VERBINDING">
+              <PropertyRef Name="Sector_ID_Van" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SECTORVERBINDING1">
+          <End Role="SECTOR" Type="Self.SECTOR" Multiplicity="0..1" />
+          <End Role="VERBINDING" Type="Self.VERBINDING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SECTOR">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VERBINDING">
+              <PropertyRef Name="Sector_ID_Naar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SPOORSECTOR">
+          <End Role="SPOOR" Type="Self.SPOOR" Multiplicity="0..1" />
+          <End Role="SECTOR" Type="Self.SECTOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SPOOR">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SECTOR">
+              <PropertyRef Name="Spoor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TRAMTRAM_LIJN">
+          <End Role="TRAM" Type="Self.TRAM" Multiplicity="1" />
+          <End Role="TRAM_LIJN" Type="Self.TRAM_LIJN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRAM">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRAM_LIJN">
+              <PropertyRef Name="Tram_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TRAMTRAM_ONDERHOUD">
+          <End Role="TRAM" Type="Self.TRAM" Multiplicity="0..1" />
+          <End Role="TRAM_ONDERHOUD" Type="Self.TRAM_ONDERHOUD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRAM">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRAM_ONDERHOUD">
+              <PropertyRef Name="Tram_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TRAMTYPETRAM">
+          <End Role="TRAMTYPE" Type="Self.TRAMTYPE" Multiplicity="0..1" />
+          <End Role="TRAM" Type="Self.TRAM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRAMTYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRAM">
+              <PropertyRef Name="Tramtype_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FUNCTIE_RECHT">
+          <End Role="FUNCTIE" Type="Self.FUNCTIE" Multiplicity="*" />
+          <End Role="RECHT" Type="Self.RECHT" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="RailsOracleEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FUNCTIE" EntityType="Self.FUNCTIE" />
+          <EntitySet Name="LIJN" EntityType="Self.LIJN" />
+          <EntitySet Name="MEDEWERKER" EntityType="Self.MEDEWERKER" />
+          <EntitySet Name="RECHT" EntityType="Self.RECHT" />
+          <EntitySet Name="REMISE" EntityType="Self.REMISE" />
+          <EntitySet Name="RESERVERING" EntityType="Self.RESERVERING" />
+          <EntitySet Name="SECTOR" EntityType="Self.SECTOR" />
+          <EntitySet Name="SPOOR" EntityType="Self.SPOOR" />
+          <EntitySet Name="TRAM" EntityType="Self.TRAM" />
+          <EntitySet Name="TRAM_LIJN" EntityType="Self.TRAM_LIJN" />
+          <EntitySet Name="TRAM_ONDERHOUD" EntityType="Self.TRAM_ONDERHOUD" />
+          <EntitySet Name="TRAMTYPE" EntityType="Self.TRAMTYPE" />
+          <EntitySet Name="TRANSFER" EntityType="Self.TRANSFER" />
+          <EntitySet Name="VERBINDING" EntityType="Self.VERBINDING" />
+          <AssociationSet Name="FUNCTIEMEDEWERKER" Association="Self.FUNCTIEMEDEWERKER">
+            <End Role="FUNCTIE" EntitySet="FUNCTIE" />
+            <End Role="MEDEWERKER" EntitySet="MEDEWERKER" />
+          </AssociationSet>
+          <AssociationSet Name="LIJNTRAM_LIJN" Association="Self.LIJNTRAM_LIJN">
+            <End Role="LIJN" EntitySet="LIJN" />
+            <End Role="TRAM_LIJN" EntitySet="TRAM_LIJN" />
+          </AssociationSet>
+          <AssociationSet Name="REMISELIJN" Association="Self.REMISELIJN">
+            <End Role="REMISE" EntitySet="REMISE" />
+            <End Role="LIJN" EntitySet="LIJN" />
+          </AssociationSet>
+          <AssociationSet Name="MEDEWERKERTRAM_ONDERHOUD" Association="Self.MEDEWERKERTRAM_ONDERHOUD">
+            <End Role="MEDEWERKER" EntitySet="MEDEWERKER" />
+            <End Role="TRAM_ONDERHOUD" EntitySet="TRAM_ONDERHOUD" />
+          </AssociationSet>
+          <AssociationSet Name="REMISESPOOR" Association="Self.REMISESPOOR">
+            <End Role="REMISE" EntitySet="REMISE" />
+            <End Role="SPOOR" EntitySet="SPOOR" />
+          </AssociationSet>
+          <AssociationSet Name="REMISETRAM" Association="Self.REMISETRAM">
+            <End Role="REMISE" EntitySet="REMISE" />
+            <End Role="TRAM" EntitySet="TRAM" />
+          </AssociationSet>
+          <AssociationSet Name="REMISETRANSFER" Association="Self.REMISETRANSFER">
+            <End Role="REMISE" EntitySet="REMISE" />
+            <End Role="TRANSFER" EntitySet="TRANSFER" />
+          </AssociationSet>
+          <AssociationSet Name="REMISETRANSFER1" Association="Self.REMISETRANSFER1">
+            <End Role="REMISE" EntitySet="REMISE" />
+            <End Role="TRANSFER" EntitySet="TRANSFER" />
+          </AssociationSet>
+          <AssociationSet Name="SPOORRESERVERING" Association="Self.SPOORRESERVERING">
+            <End Role="SPOOR" EntitySet="SPOOR" />
+            <End Role="RESERVERING" EntitySet="RESERVERING" />
+          </AssociationSet>
+          <AssociationSet Name="TRAMRESERVERING" Association="Self.TRAMRESERVERING">
+            <End Role="TRAM" EntitySet="TRAM" />
+            <End Role="RESERVERING" EntitySet="RESERVERING" />
+          </AssociationSet>
+          <AssociationSet Name="SECTORVERBINDING" Association="Self.SECTORVERBINDING">
+            <End Role="SECTOR" EntitySet="SECTOR" />
+            <End Role="VERBINDING" EntitySet="VERBINDING" />
+          </AssociationSet>
+          <AssociationSet Name="SECTORVERBINDING1" Association="Self.SECTORVERBINDING1">
+            <End Role="SECTOR" EntitySet="SECTOR" />
+            <End Role="VERBINDING" EntitySet="VERBINDING" />
+          </AssociationSet>
+          <AssociationSet Name="SPOORSECTOR" Association="Self.SPOORSECTOR">
+            <End Role="SPOOR" EntitySet="SPOOR" />
+            <End Role="SECTOR" EntitySet="SECTOR" />
+          </AssociationSet>
+          <AssociationSet Name="TRAMTRAM_LIJN" Association="Self.TRAMTRAM_LIJN">
+            <End Role="TRAM" EntitySet="TRAM" />
+            <End Role="TRAM_LIJN" EntitySet="TRAM_LIJN" />
+          </AssociationSet>
+          <AssociationSet Name="TRAMTRAM_ONDERHOUD" Association="Self.TRAMTRAM_ONDERHOUD">
+            <End Role="TRAM" EntitySet="TRAM" />
+            <End Role="TRAM_ONDERHOUD" EntitySet="TRAM_ONDERHOUD" />
+          </AssociationSet>
+          <AssociationSet Name="TRAMTYPETRAM" Association="Self.TRAMTYPETRAM">
+            <End Role="TRAMTYPE" EntitySet="TRAMTYPE" />
+            <End Role="TRAM" EntitySet="TRAM" />
+          </AssociationSet>
+          <AssociationSet Name="FUNCTIE_RECHT" Association="Self.FUNCTIE_RECHT">
+            <End Role="FUNCTIE" EntitySet="FUNCTIE" />
+            <End Role="RECHT" EntitySet="RECHT" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RailsDataModelStoreContainer" CdmEntityContainer="RailsOracleEntities">
+          <EntitySetMapping Name="FUNCTIE">
+            <EntityTypeMapping TypeName="RailsDataModel.FUNCTIE">
+              <MappingFragment StoreEntitySet="FUNCTIE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LIJN">
+            <EntityTypeMapping TypeName="RailsDataModel.LIJN">
+              <MappingFragment StoreEntitySet="LIJN">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Remise_ID" ColumnName="Remise_ID" />
+                <ScalarProperty Name="Nummer" ColumnName="Nummer" />
+                <ScalarProperty Name="ConducteurRijdtMee" ColumnName="ConducteurRijdtMee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MEDEWERKER">
+            <EntityTypeMapping TypeName="RailsDataModel.MEDEWERKER">
+              <MappingFragment StoreEntitySet="MEDEWERKER">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Functie_ID" ColumnName="Functie_ID" />
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RECHT">
+            <EntityTypeMapping TypeName="RailsDataModel.RECHT">
+              <MappingFragment StoreEntitySet="RECHT">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Omschrijving" ColumnName="Omschrijving" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REMISE">
+            <EntityTypeMapping TypeName="RailsDataModel.REMISE">
+              <MappingFragment StoreEntitySet="REMISE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+                <ScalarProperty Name="GroteServiceBeurtenPerDag" ColumnName="GroteServiceBeurtenPerDag" />
+                <ScalarProperty Name="KleineServiceBeurtenPerDag" ColumnName="KleineServiceBeurtenPerDag" />
+                <ScalarProperty Name="GroteSchoonmaakBeurtenPerDag" ColumnName="GroteSchoonmaakBeurtenPerDag" />
+                <ScalarProperty Name="KleineSchoonmaakBeurtenPerDag" ColumnName="KleineSchoonmaakBeurtenPerDag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RESERVERING">
+            <EntityTypeMapping TypeName="RailsDataModel.RESERVERING">
+              <MappingFragment StoreEntitySet="RESERVERING">
+                <ScalarProperty Name="Reservering_ID" ColumnName="Reservering_ID" />
+                <ScalarProperty Name="Tram_ID" ColumnName="Tram_ID" />
+                <ScalarProperty Name="Spoor_ID" ColumnName="Spoor_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SECTOR">
+            <EntityTypeMapping TypeName="RailsDataModel.SECTOR">
+              <MappingFragment StoreEntitySet="SECTOR">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Spoor_ID" ColumnName="Spoor_ID" />
+                <ScalarProperty Name="Tram_ID" ColumnName="Tram_ID" />
+                <ScalarProperty Name="Nummer" ColumnName="Nummer" />
+                <ScalarProperty Name="Beschikbaar" ColumnName="Beschikbaar" />
+                <ScalarProperty Name="Blokkade" ColumnName="Blokkade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SPOOR">
+            <EntityTypeMapping TypeName="RailsDataModel.SPOOR">
+              <MappingFragment StoreEntitySet="SPOOR">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Remise_ID" ColumnName="Remise_ID" />
+                <ScalarProperty Name="Nummer" ColumnName="Nummer" />
+                <ScalarProperty Name="Lengte" ColumnName="Lengte" />
+                <ScalarProperty Name="Beschikbaar" ColumnName="Beschikbaar" />
+                <ScalarProperty Name="InUitRijspoor" ColumnName="InUitRijspoor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRAM">
+            <EntityTypeMapping TypeName="RailsDataModel.TRAM">
+              <MappingFragment StoreEntitySet="TRAM">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Remise_ID_Standplaats" ColumnName="Remise_ID_Standplaats" />
+                <ScalarProperty Name="Tramtype_ID" ColumnName="Tramtype_ID" />
+                <ScalarProperty Name="Nummer" ColumnName="Nummer" />
+                <ScalarProperty Name="Lengte" ColumnName="Lengte" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Vervuild" ColumnName="Vervuild" />
+                <ScalarProperty Name="Defect" ColumnName="Defect" />
+                <ScalarProperty Name="ConducteurGeschikt" ColumnName="ConducteurGeschikt" />
+                <ScalarProperty Name="Beschikbaar" ColumnName="Beschikbaar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRAM_LIJN">
+            <EntityTypeMapping TypeName="RailsDataModel.TRAM_LIJN">
+              <MappingFragment StoreEntitySet="TRAM_LIJN">
+                <ScalarProperty Name="TL_ID" ColumnName="TL_ID" />
+                <ScalarProperty Name="Tram_ID" ColumnName="Tram_ID" />
+                <ScalarProperty Name="Lijn_ID" ColumnName="Lijn_ID" />
+                <ScalarProperty Name="Gebonden" ColumnName="Gebonden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRAM_ONDERHOUD">
+            <EntityTypeMapping TypeName="RailsDataModel.TRAM_ONDERHOUD">
+              <MappingFragment StoreEntitySet="TRAM_ONDERHOUD">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Medewerker_ID" ColumnName="Medewerker_ID" />
+                <ScalarProperty Name="Tram_ID" ColumnName="Tram_ID" />
+                <ScalarProperty Name="DatumTijdstip" ColumnName="DatumTijdstip" />
+                <ScalarProperty Name="BeschikbaarDatum" ColumnName="BeschikbaarDatum" />
+                <ScalarProperty Name="TypeOnderhoud" ColumnName="TypeOnderhoud" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRAMTYPE">
+            <EntityTypeMapping TypeName="RailsDataModel.TRAMTYPE">
+              <MappingFragment StoreEntitySet="TRAMTYPE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Omschrijving" ColumnName="Omschrijving" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRANSFER">
+            <EntityTypeMapping TypeName="RailsDataModel.TRANSFER">
+              <MappingFragment StoreEntitySet="TRANSFER">
+                <ScalarProperty Name="Remise_ID_Van" ColumnName="Remise_ID_Van" />
+                <ScalarProperty Name="Remise_ID_Naar" ColumnName="Remise_ID_Naar" />
+                <ScalarProperty Name="Aantal" ColumnName="Aantal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VERBINDING">
+            <EntityTypeMapping TypeName="RailsDataModel.VERBINDING">
+              <MappingFragment StoreEntitySet="VERBINDING">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Sector_ID_Van" ColumnName="Sector_ID_Van" />
+                <ScalarProperty Name="Sector_ID_Naar" ColumnName="Sector_ID_Naar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FUNCTIE_RECHT" TypeName="RailsDataModel.FUNCTIE_RECHT" StoreEntitySet="FUNCTIE_RECHT">
+            <EndProperty Name="FUNCTIE">
+              <ScalarProperty Name="ID" ColumnName="Functie_ID" />
+            </EndProperty>
+            <EndProperty Name="RECHT">
+              <ScalarProperty Name="ID" ColumnName="Recht_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

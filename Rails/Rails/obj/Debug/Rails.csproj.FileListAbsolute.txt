@@ -176,3 +176,6 @@ C:\Users\Nivade\Documents\GitHub\rails-asp\rails-asp\Rails\Rails\bin\Microsoft.O
 C:\Users\Nivade\Documents\GitHub\rails-asp\rails-asp\Rails\Rails\obj\Debug\Rails.csprojResolveAssemblyReference.cache
 C:\Users\Nivade\Documents\GitHub\rails-asp\rails-asp\Rails\Rails\obj\Debug\Rails.dll
 C:\Users\Nivade\Documents\GitHub\rails-asp\rails-asp\Rails\Rails\obj\Debug\Rails.pdb
+C:\Users\Nivade\Documents\GitHub\rails-asp\rails-asp\Rails\Rails\bin\Oracle.ManagedDataAccess.dll
+C:\Users\Nivade\Documents\GitHub\rails-asp\rails-asp\Rails\Rails\bin\Oracle.ManagedDataAccess.EntityFramework.dll
+C:\Users\Nivade\Documents\GitHub\rails-asp\rails-asp\Rails\Rails\bin\Oracle.Web.dll
